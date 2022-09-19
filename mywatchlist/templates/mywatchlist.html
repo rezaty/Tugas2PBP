@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h5>Nama: </h5>
+<p>Reza Taufiq Yahya</p>
+
+<table>
+    <tr>
+    <th>Watched</th>
+    <th>Judul Film</th>
+    <th>Rating</th>
+    <th>Tanggal Rilis</th>
+    <th>Review</th>
+    </tr>
+
+{% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+{% for Film in list_film %}
+    <tr>
+        <th>{{Film.watched}}</th>
+        <th>{{Film.title}}</th>
+        <th>{{Film.rating}}</th>
+        <th>{{Film.release_date}}</th>
+        <th>{{Film.review}}</th>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock content %}

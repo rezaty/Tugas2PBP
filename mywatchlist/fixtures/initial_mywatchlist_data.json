@@ -1,0 +1,113 @@
+[
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 1,
+        "fields": {
+            "watched" : "Sudah ditonton",
+            "title" : "Doraemon Stand By Me",
+            "rating" : 5,
+            "release_date" : "2014-12-18",
+            "review" : "Ada seorang anak laki - laki yang bernama nobita dan robot kucing yang bernama Doraemon dari abad ke 22"
+        }
+    },
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 2,
+        "fields": {
+            "watched" : "Sudah ditonton",
+            "title" : "Iron Man 3",
+            "rating" : 4,
+            "release_date" : "2014-04-25",
+            "review" : "Mengisahkan Tony Stark, seorang pengusaha sukses sekaligus Iron Man yang berusaha menjaga baju robotnya yang dinilai tidak lagi aman."
+        }
+    },
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 3,
+        "fields": {
+            "watched" : "Sudah ditonton",
+            "title" : "Miracle in Cell No 7",
+            "rating" : 5,
+            "release_date" : "2022-09-08",
+            "review" : "Menceritakan tentang seorang ayah yang memiliki keterbatasan dalam hal kecerdasan yang membuatnya bertingkah dan berperilaku seperti anak-anak, \nia berusaha menjadi ayah yang baik untuk putrinya Kartika"
+        }
+    },
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 4,
+        "fields": {
+            "watched" : "Sudah ditonton",
+            "title" : "Avengers Infinity War",
+            "rating" : 5,
+            "release_date" : "2018-04-25",
+            "review" : "Thanos berambisi untuk mengumpulkan enam batu abadi yang tersebar di berbagai tempat. Setiap batu memiliki kekuatan tersendiri sehingga tidak sembarang orang bisa mendapatkannya."
+        }
+    },
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 5,
+        "fields": {
+            "watched" : "Sudah ditonton",
+            "title" : "Avengers Endgame",
+            "rating" : 5,
+            "release_date" : "2019-04-24",
+            "review" : "Film ini menceritakan peristiwa yang terjadi dalam rentang waktu lima tahun berselang dari film sebelumnya, Avengers: Infinity War.\n Pada Avengers: Infinity War, dikisahkan bahwa setengah populasi dunia hilang karena ulah Thanos."
+        }
+    },
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 6,
+        "fields": {
+            "watched" : "Belum",
+            "title" : "Sayap - Sayap Patah",
+            "rating" : 4,
+            "release_date" : "2022-08-18",
+            "review" : "Film ini menggambarkan peristiwa pembobolan rutan oleh para teroris, \nterinspirasi dari kisah nyata peristiwa di Mako Brimob pada tahun 2018 yang menewaskan sebanyak lima anggota Densus 88."
+        }
+    },
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 7,
+        "fields": {
+            "watched" : "Belum",
+            "title" : "Thor : Love and Thunder ",
+            "rating" : 5,
+            "release_date" : "2022-07-06",
+            "review" : "Thor mengisi masa pensiunnya dengan mengembara mencari kedamaian serta berusaha mengembalikan bentuk tubuhnya. \nNamun, di tengah pengembaraannya Thor kembali diusik dengan kehadiran pembunuh antar galaxi Gorr the God Butcher yang membantai para Dewa."
+        }
+    },
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 8,
+        "fields": {
+            "watched" : "Belum",
+            "title" : "Minions : The Rise of Gru",
+            "rating" : 5,
+            "release_date" : "2022-06-28",
+            "review" : "Mimpi seorang anak 12 tahun untuk menjadi penjahat super terbesar di dunia"
+        }
+    },
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 9,
+        "fields": {
+            "watched" : "Belum",
+            "title" : "Fast and Furious 9",
+            "rating" : 3,
+            "release_date" : "2021-06-16",
+            "review" : "Bercerita tentang perseteruan yang terjadi antara Dominic Toretto dan sang adik Jacob Toretto "
+        }
+    },
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk": 10,
+        "fields": {
+            "watched" : "Belum",
+            "title" : "Uncharted",
+            "rating" : 4,
+            "release_date" : "2022-02-16",
+            "review" : "Aksi perburuan harta karun terbesar yang tidak pernah ditemukan."
+        }
+    }
+
+]
