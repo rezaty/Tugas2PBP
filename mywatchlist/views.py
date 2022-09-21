@@ -10,6 +10,7 @@ def show_MyWatchList(request):
     }
     return render(request, "mywatchlist.html", context)
 # Create your views here.
+
 def show_xml(request):
     data = MyWatchList.objects.all()
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")

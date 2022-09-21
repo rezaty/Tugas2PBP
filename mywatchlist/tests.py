@@ -1,7 +1,7 @@
 from django.test import TestCase, Client 
 class HomepageTests(TestCase):
     def test_url_exists_at_correct_location(self):
-        response = Client().get('/mywatchlist/')
+        response = Client().get('/mywatchlist/html')
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists(self):

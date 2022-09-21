@@ -8,6 +8,7 @@ app_name = 'mywatchlist'
 
 urlpatterns = [
     path('', show_MyWatchList, name='show_MyWatchlist'),
+    path('html', show_MyWatchList, name='show_MyWatchlist'),
     path('xml/', show_xml, name='show_xml'), #sesuaikan dengan nama fungsi yang dibuat
     path('json/', show_json, name='show_json'), #sesuaikan dengan nama fungsi yang dibuat
     path('json/<int:id>', show_json_by_id, name='show_json_by_id'), #sesuaikan dengan nama fungsi yang dibuat
