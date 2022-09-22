@@ -6,7 +6,7 @@ def show_katalog(request):
     context = {
         'list_katalog' : data_item_katalog,
         'nama' : 'Reza Taufiq Yahya',
-        'NPM' : '2106654183'  ,  
+        'NPM' : '2106654183',  
     }
     return render(request, "katalog.html", context)
 # TODO: Create your views here.
