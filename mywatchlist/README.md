@@ -49,10 +49,10 @@ untuk membuat routing saya menambahkan path pada `urls.py` agar data dapat diaks
 Pada `tests.py` saya membuat 3 fungsi yang isi parameternya `self` dan variabel response isinya `client().get` dengan paramaternya masing - masing jenis data.
 
 html.png
-<img src= https://github.com/rezaty/Tugas2PBP/blob/main/mywatchlist/image/html.png width = "1920" height = "1080">
+<img src= https://github.com/rezaty/Tugas2PBP/blob/main/mywatchlist/image/html.png width = "1920" height = "720">
 
 json.png
-<img src= https://github.com/rezaty/Tugas2PBP/blob/main/mywatchlist/image/json.png width = "1920" height = "1080">
+<img src= https://github.com/rezaty/Tugas2PBP/blob/main/mywatchlist/image/json.png width = "1920" height = "720">
 
 xml.png
-<img src= https://github.com/rezaty/Tugas2PBP/blob/main/mywatchlist/image/xml.png width = "1920" height = "1080">
+<img src= https://github.com/rezaty/Tugas2PBP/blob/main/mywatchlist/image/xml.png width = "1920" height = "720">
