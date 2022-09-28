@@ -1,9 +1,11 @@
 from django.db import models
+from datetime import datetime
 from django.contrib.auth.models import User
 # Create your models here.
-class todolist (models.Model):
+class Task (models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.DateField(default=datetime.now())
     title = models.TextField()
     description = models.TextField()
+    is_finished = models.BooleanField(default = False)
     

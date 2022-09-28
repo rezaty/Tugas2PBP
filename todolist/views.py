@@ -3,18 +3,18 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-import datetime
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from todolist.forms import TaskForm
-from todolist.models import todolist
+from todolist.models import Task
 
 # Create your views here.
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    todo = todolist.objects.all()
+    todo = Task.objects.all()
     context = {
     'nama': 'Reza Taufiq Yahya',
     'NPM': '2106654183',
@@ -43,8 +43,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("todolist:login")) # membuat response
-            response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
+            response = HttpResponseRedirect(reverse("todolist:show_todolist")) # membuat response
             return response
         else:
             messages.info(request, 'Username atau Password salah!')
@@ -54,7 +53,6 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('todolist:login'))
-    response.delete_cookie('last_login')
     return response
 
 def create_task(request):
@@ -62,11 +60,28 @@ def create_task(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
         if form.is_valid():
-            todo = todolist(
-                title=request.POST["title"],
-                description=request.POST["description"],
-                date = datetime.now())
+            todo = Task(
+                title=request.POST.get("title"),
+                description=request.POST.get("description"),
+                date = datetime.now(),
+                user = request.user
+            )
             todo.save()
             return redirect('todolist:show_todolist')
+    else :
+        form = TaskForm()
     context = {'form':form}
     return render(request, 'create_task.html', context)
+
+def set_task(request, pk):
+    todolist = Task.objects.filter(pk=pk)
+    if todolist.get().is_finished:
+        todolist.update(is_finished=False)
+    else:
+        todolist.update(is_finished=True)
+    return redirect('todolist:show_todolist')
+
+def delete(request, pk):
+    todolist = Task.objects.filter(pk=pk)
+    todolist.delete()
+    return redirect('todolist:show_todolist')

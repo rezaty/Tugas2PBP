@@ -8,24 +8,36 @@
 
 <h1>Tugas 4 Assignment PBP/PBD</h1>
 <h4>Name: {{nama}}</h4>
-<h4>Student ID: {{npm}}</h4>
+<h4>Student ID: {{NPM}}</h4>
 
 
 <h2>To Do List</h2>
+<button><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
 <table>
     <tr>
-      <th>Tanggal Pembuatan</th>
       <th>Judul</th>
+      <th>Tanggal Pembuatan</th>
       <th>Deskripsi</th>
+      <th>Status Penyelesaian</th>
     </tr>
     {% for item in todolist %}
     <tr>
         <th>{{item.title}}</th>
-        <th>{{item.description}}</th>
         <th>{{item.date}}</th>
+        <th>{{item.description}}</th>
+        {% if item.is_finished %}
+            <th>Selesai</th>
+            <th> <button><a href="{% url 'todolist:set_task' item.pk %}">Mark Undone</a></button> </th>
+        {% else %}
+            <th>Belum Selesai</th>
+            <th> <button><a href="{% url 'todolist:set_task' item.pk %}">Mark Done</a></button> </th>
+        {% endif %}
+        <th> <button><a href="{% url 'todolist:delete' item.pk %}">Hapus Task</a></button> </th>
     </tr>
     {% endfor %}
 </table>
 
-<button><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
-<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+<div>
+  <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+</div>
+{% endblock content %}  

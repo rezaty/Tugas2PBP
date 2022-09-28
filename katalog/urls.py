@@ -4,6 +4,6 @@ from katalog.views import show_katalog
 
 app_name = 'katalog'
 
-urlpatterns = {
+urlpatterns = [
         path('', show_katalog, name='show_katalog'),
-}
+]
