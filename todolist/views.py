@@ -14,11 +14,11 @@ from todolist.models import Task
 # Create your views here.
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    todo = Task.objects.all()
+    todo = Task.objects.filter(user=request.user)
     context = {
     'nama': 'Reza Taufiq Yahya',
     'NPM': '2106654183',
-    'todolist' : todo
+    'todolist' : todo,
     }
     return render(request, "todolist.html", context)
 
