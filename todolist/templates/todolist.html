@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Tugas 4 Assignment PBP</title>
+{% endblock meta %}
+
+{% block content %}  
+
+<h1>Tugas 4 Assignment PBP/PBD</h1>
+<h4>Name: {{nama}}</h4>
+<h4>Student ID: {{npm}}</h4>
+
+
+<h2>To Do List</h2>
+<table>
+    <tr>
+      <th>Tanggal Pembuatan</th>
+      <th>Judul</th>
+      <th>Deskripsi</th>
+    </tr>
+    {% for item in todolist %}
+    <tr>
+        <th>{{item.title}}</th>
+        <th>{{item.description}}</th>
+        <th>{{item.date}}</th>
+    </tr>
+    {% endfor %}
+</table>
+
+<button><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
+<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
