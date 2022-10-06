@@ -6,7 +6,8 @@
 
 {% block content %}
 <body style = "background-color :blanchedalmond">
-  <h2 class="text-success container-fluid">Tambah Task</h2>
+  <div class="container-fluid">
+    <h2 class="text-success container-fluid">Tambah Task</h2>
   <div class="card text-bg-success mb-3" style="width: 25rem;">
       <form class="text-center fw-bold" action="{% url 'todolist:create_task' %}" method="post">
       <div class="card-body">
@@ -16,6 +17,7 @@
       </div>
       </form>
     </div>
+  </div>
   
 </body>
 
