@@ -5,39 +5,31 @@
 {% endblock meta %}
 
 {% block content %}  
-
-<h1>Tugas 4 Assignment PBP/PBD</h1>
-<h4>Name: {{nama}}</h4>
-<h4>Student ID: {{NPM}}</h4>
-
-
-<h2>To Do List</h2>
-<button><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
-<table>
-    <tr>
-      <th>Judul</th>
-      <th>Tanggal Pembuatan</th>
-      <th>Deskripsi</th>
-      <th>Status Penyelesaian</th>
-    </tr>
-    {% for item in todolist %}
-    <tr>
-        <th>{{item.title}}</th>
-        <th>{{item.date}}</th>
-        <th>{{item.description}}</th>
-        {% if item.is_finished %}
-            <th>Selesai</th>
-            <th> <button><a href="{% url 'todolist:set_task' item.pk %}">Mark Undone</a></button> </th>
-        {% else %}
-            <th>Belum Selesai</th>
-            <th> <button><a href="{% url 'todolist:set_task' item.pk %}">Mark Done</a></button> </th>
-        {% endif %}
-        <th> <button><a href="{% url 'todolist:delete' item.pk %}">Hapus Task</a></button> </th>
-    </tr>
-    {% endfor %}
-</table>
-
-<div>
-  <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
-</div>
+<body style = "background-color :blanchedalmond">
+  <h1 class="text-center text-primary fw-bold">Tugas 4 Assignment PBP/PBD To Do List</h1>
+  <h4 class="fw-bold container-fluid">Name: {{nama}}</h4>
+  <h4 class="fw-bold container-fluid">Student ID: {{NPM}}</h4>
+  
+  <button class="btn btn-outline-warning"><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
+  {% for item in todolist %}
+  <div class="card text-bg-dark mb-3" style="width: 25rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{item.title}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{item.date}}</h6>
+      <p class="card-text">{{item.description}}</p>
+      {% if item.is_finished %}
+      <p class="card-text">Selesai</p>
+      <button class="btn btn-outline-warning"><a href="{% url 'todolist:set_task' item.pk %}">Mark Undone</a></button>
+      {% else %}
+      <p class="card-text">Belum Selesai</p>
+      <button class="btn btn-outline-warning"><a href="{% url 'todolist:set_task' item.pk %}">Mark Done</a></button>
+      {% endif %}
+      <button class="btn btn-outline-warning"><a href="{% url 'todolist:delete' item.pk %}">Hapus Task</a></button>
+      {% endfor %}
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-outline-warning text-center" ><a href="{% url 'todolist:logout' %}">Logout</a></button>
+  </div>
+</body>
 {% endblock content %}  

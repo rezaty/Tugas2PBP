@@ -5,18 +5,18 @@
 {% endblock meta %}
 
 {% block content %}
-
-
-<h2>Tambah Task</h2>
-<div>
-    <form action="{% url 'todolist:create_task' %}" method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <br><br>
-        <input type="submit" value="Submit" />
-    </form>
-    <br>
-
-</div>
+<body style = "background-color :blanchedalmond">
+  <h2 class="text-success container-fluid">Tambah Task</h2>
+  <div class="card text-bg-success mb-3" style="width: 25rem;">
+      <form class="text-center fw-bold" action="{% url 'todolist:create_task' %}" method="post">
+      <div class="card-body">
+        <h5 class="card-title">Tambah Task</h5>
+        <p class="card-text">{% csrf_token %} {{form.as_p}}</p>
+        <input class="btn btn-outline-dark"type="submit" value="Submit" />
+      </div>
+      </form>
+    </div>
+  
+</body>
 
 {% endblock content %}
