@@ -2,6 +2,193 @@
 
 {% block meta %}
 <title>Tugas 4 Assignment PBP</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script>
+  
+   function hapusTask(pk) {
+    $.ajax({
+      url: `delete/${pk}`,
+      success: function() {
+        $("#data").empty();
+        $.get( "{% url 'todolist:show_json' %}", function(data) {
+          taskData(data);
+        });
+      }    
+    });
+  }
+
+
+  // Function untuk menampilkan data task
+  function taskData(data) {
+    if (data.length == 0) {
+
+      var pesan = document.createElement('p');
+      pesan.innerHTML = 'Belum ada tugas';
+      pesan.style.margin = "0px 10px";
+
+      $(document.body).append(pesan);
+
+    }  else {
+
+      $.each( data, function(key, val) {
+
+        // Untuk mengubah status task menjadi selesai
+        if (val.fields.is_finished) {
+          var outerDiv = document.createElement('div');
+          outerDiv.classList.add('col-sm-6');
+
+          var card_outer = document.createElement('div');
+          card_outer.classList.add('card', 'text-bg-success', 'mb-3');
+
+          var card_body = document.createElement('div');
+          card_body.classList.add('card-body');
+
+          card_outer.appendChild(card_body);
+
+          var title = document.createElement('h3');
+          var subtitle = document.createElement('h6');
+          var text = document.createElement('p');
+
+          title.classList.add('card-title');
+          subtitle.classList.add('card-subtitle');
+          text.classList.add('card-text');
+
+          title.innerHTML = val.fields.title;
+          subtitle.innerHTML = "Ditambahkan: " + val.fields.date;
+          text.innerHTML = val.fields.description
+
+          card_body.appendChild(title);
+          card_body.appendChild(subtitle);
+          card_body.appendChild(text);
+
+          var buttonRemove = document.createElement('button');
+          buttonRemove.classList.add('btn', 'btn-danger');
+          buttonRemove.style.marginRight = "10px";
+          buttonRemove.setAttribute('onclick', `hapusTask(${val.pk})`);
+
+          var link = document.createElement('a');
+          var linkText = document.createTextNode("Hapus Task");
+          link.appendChild(linkText);
+          link.classList.add('link-light', 'text-decoration-none');
+
+          buttonRemove.appendChild(link);
+          card_body.appendChild(buttonRemove);
+
+          var buttonOuter = document.createElement('button');
+          buttonOuter.classList.add('btn', 'btn-warning');
+
+          var button = document.createElement('a');
+          var buttonText = document.createTextNode("Belum Selesai");
+          button.appendChild(buttonText);
+          button.classList.add('link-light', 'text-decoration-none');
+          button.href = "update/" + val.pk;
+
+          
+          buttonOuter.appendChild(button);
+          card_body.appendChild(buttonOuter);
+
+          outerDiv.appendChild(card_outer);
+
+          $("#data").append(outerDiv);
+
+        // Untuk mengubah status task menjadi belum selesai
+        } else {
+          var outerDiv = document.createElement('div');
+          outerDiv.classList.add('col-sm-6');
+          var card_outer = document.createElement('div');
+          card_outer.classList.add('card', 'text-bg-warning', 'mb-3');
+
+          var card_body = document.createElement('div');
+          card_body.classList.add('card-body');
+
+          card_outer.appendChild(card_body);
+
+          var title = document.createElement('h3');
+          var subtitle = document.createElement('h6');
+          var text = document.createElement('p');
+
+          title.classList.add('card-title');
+          subtitle.classList.add('card-subtitle');
+          text.classList.add('card-text');
+
+          title.innerHTML = val.fields.title;
+          subtitle.innerHTML = "Ditambahkan: " + val.fields.date;
+          text.innerHTML = val.fields.description
+
+          card_body.appendChild(title);
+          card_body.appendChild(subtitle);
+          card_body.appendChild(text);
+
+          var buttonRemove = document.createElement('button');
+          buttonRemove.classList.add('btn', 'btn-danger');
+          buttonRemove.style.marginRight = "10px";
+          buttonRemove.setAttribute('onclick', `hapusTask(${val.pk})`);
+
+          var link = document.createElement('a');
+          var linkText = document.createTextNode("Hapus task");
+          link.appendChild(linkText);
+          link.classList.add('link-light', 'text-decoration-none');
+
+          buttonRemove.appendChild(link);
+          card_body.appendChild(buttonRemove);
+
+          var buttonOuter = document.createElement('button');
+          buttonOuter.classList.add('btn', 'btn-success');
+
+          var button = document.createElement('a');
+          var buttonText = document.createTextNode("Selesai");
+          button.appendChild(buttonText);
+          button.classList.add('link-light', 'text-decoration-none');
+          button.href = "update/" + val.pk;
+
+          
+          buttonOuter.appendChild(button);
+          card_body.appendChild(buttonOuter);
+          outerDiv.appendChild(card_outer);
+
+          $("#data").append(outerDiv);
+        }
+
+      });
+    }
+  }
+
+  $(document).ready(function(){
+
+    // For displaying task data
+    $.get( "{% url 'todolist:show_json' %}", function(data) {
+      taskData(data);      
+    });
+
+    // For adding new Task
+    $("#addTask").submit(function (e) {
+      e.preventDefault();
+      var serializedData = $(this).serialize();
+      $.ajax({
+          url: "{% url 'todolist:add_task' %}",
+          type: "POST",
+          data: serializedData,
+          dataType: 'text',
+          success: function (data) {
+              $("#exampleModal").modal('hide');
+              $('#addTask').each(function () {
+                  this.reset();
+              });
+
+              // Empty div class and make new
+              $("#data").empty();
+              $.get( "{% url 'todolist:show_json' %}", function(data) {
+                taskData(data);
+              });
+          }
+      });    
+    });
+
+    $()
+  });
+  </script>
 {% endblock meta %}
 
 {% block content %}  
@@ -11,31 +198,43 @@
   <h4 class="fw-bold container-fluid">Student ID: {{NPM}}</h4>  
   
   <div class="container-fluid">
-    <button class="btn btn-outline-warning"><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
     <button class="btn btn-outline-warning text-center" ><a href="{% url 'todolist:logout' %}">Logout</a></button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Update Task
+    </button>
   </div>
 
-  <div class="container-fluid">
-    {% for item in todolist %}
-    <div class="card border-primary mb-3" style="width: 25rem;">
-      <div class="card-body" style="display:inline-block; vertical-align : middle;"> 
-        <h5 class="card-title">{{item.title}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{item.date}}</h6>
-        <p class="card-text">{{item.description}}</p>
-        {% if item.is_finished %}
-        <p class="card-text">Selesai</p>
-        <button class="btn btn-outline-warning"><a href="{% url 'todolist:set_task' item.pk %}">Mark Undone</a></button>
-        {% else %}
-        <p class="card-text">Belum Selesai</p>
-        <button class="btn btn-outline-warning"><a href="{% url 'todolist:set_task' item.pk %}">Mark Done</a></button>
-        {% endif %}
-        <button class="btn btn-outline-warning"><a href="{% url 'todolist:delete' item.pk %}">Hapus Task</a></button>
-        {% endfor %}
+  <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Task with AJAX</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addTask">
+          {% csrf_token %}
+  
+              <p>Title:</p>
+              <input type="text" name="title" placeholder="Title" class="form-control"><br/>
+                      
+              <p>Description:</p>
+              <textarea cols="100" rows="10" name="description" placeholder="Description" style="max-width: 100%;"></textarea><br/>
+              
+          <div style="margin: 10px auto;">
+              <input class="btn btn-primary" type="submit" name="submit" value="Add">
+          </div>
+
+        </form>
       </div>
     </div>
-    <div>
-    </div>
   </div>
-  
-</body>
-{% endblock content %}  
+</div>
+
+<div class="row" style="margin-left:10px; margin-right:10px" id="data">
+</div>
+
+{% endblock content %}

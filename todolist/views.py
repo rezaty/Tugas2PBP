@@ -5,11 +5,13 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
 from todolist.forms import TaskForm
 from todolist.models import Task
+from django.core import serializers
 
 # Create your views here.
 @login_required(login_url='/todolist/login/')
@@ -55,33 +57,44 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('todolist:login'))
     return response
 
+@login_required(login_url='/todolist/login/')
 def create_task(request):
-    form = TaskForm()
-    if request.method == "POST":
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            todo = Task(
-                title=request.POST.get("title"),
-                description=request.POST.get("description"),
-                date = datetime.now(),
-                user = request.user
-            )
-            todo.save()
-            return redirect('todolist:show_todolist')
-    else :
-        form = TaskForm()
-    context = {'form':form}
-    return render(request, 'create_task.html', context)
+    if request.method == 'POST':
+        task = Task()
+        task.user = request.user
+        task.title = request.POST.get('title')
+        task.description = request.POST.get('description')
+        task.save()
+        return redirect('todolist:show_todolist')
 
-def set_task(request, pk):
-    todolist = Task.objects.filter(pk=pk)
-    if todolist.get().is_finished:
-        todolist.update(is_finished=False)
-    else:
-        todolist.update(is_finished=True)
+    return render(request, 'createtask.html')
+
+@login_required(login_url='/todolist/login/')
+def show_json(request):
+    orang = request.user
+    dataTask = Task.objects.all().filter(user = orang)
+    return HttpResponse(serializers.serialize("json", dataTask), content_type="application/json")
+
+def add_task(request):
+    if request.method == 'POST':
+        task = Task()
+        task.user = request.user
+        task.title = request.POST.get('title')
+        task.description = request.POST.get('description')
+        task.save()    
     return redirect('todolist:show_todolist')
 
 def delete(request, pk):
-    todolist = Task.objects.filter(pk=pk)
-    todolist.delete()
+    task = Task.objects.get(pk=pk)
+    task.delete()
     return redirect('todolist:show_todolist')
+
+def update_task(request, pk):
+    task = Task.objects.get(pk=pk)
+    if (task.is_finished == True):
+        task.is_finished = False
+    else:
+        task.is_finished = True
+    task.save()
+    return redirect('todolist:show_todolist')
+
