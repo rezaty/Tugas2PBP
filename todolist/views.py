@@ -67,7 +67,7 @@ def create_task(request):
         task.save()
         return redirect('todolist:show_todolist')
 
-    return render(request, 'createtask.html')
+    return render(request, 'create_task.html')
 
 @login_required(login_url='/todolist/login/')
 def show_json(request):
